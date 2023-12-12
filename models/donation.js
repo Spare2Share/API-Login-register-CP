@@ -1,10 +1,10 @@
 import _sequelize from "sequelize";
 const { Model, Sequelize } = _sequelize;
 
-export default class organization extends Model {
+export default class donation extends Model {
   static init(sequelize, DataTypes) {
     return sequelize.define(
-      "organization",
+      "donation",
       {
         id: {
           autoIncrement: true,
@@ -12,15 +12,23 @@ export default class organization extends Model {
           allowNull: false,
           primaryKey: true,
         },
-        id_account: {
+        id_donatur: {
           type: DataTypes.INTEGER,
           allowNull: false,
           references: {
-            model: "account",
+            model: "user",
             key: "id",
           },
         },
-        nama: {
+        id_penerima: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          references: {
+            model: "organization",
+            key: "id",
+          },
+        },
+        tanggal: {
           type: DataTypes.STRING(255),
           allowNull: true,
         },
@@ -28,25 +36,17 @@ export default class organization extends Model {
           type: DataTypes.STRING(255),
           allowNull: true,
         },
-        alamat: {
+        jenis_makanan: {
           type: DataTypes.STRING(255),
           allowNull: true,
         },
-        kota: {
-          type: DataTypes.STRING(255),
-          allowNull: true,
-        },
-        provinsi: {
-          type: DataTypes.STRING(255),
-          allowNull: true,
-        },
-        nomor_telepon: {
-          type: DataTypes.STRING(50),
+        jumlah_makanan: {
+          type: DataTypes.INTEGER,
           allowNull: true,
         },
       },
       {
-        tableName: "organization",
+        tableName: "donation",
         timestamps: false,
         indexes: [
           {
@@ -56,9 +56,14 @@ export default class organization extends Model {
             fields: [{ name: "id" }],
           },
           {
-            name: "id_account",
+            name: "id_donatur",
             using: "BTREE",
-            fields: [{ name: "id_account" }],
+            fields: [{ name: "id_donatur" }],
+          },
+          {
+            name: "id_penerima",
+            using: "BTREE",
+            fields: [{ name: "id_penerima" }],
           },
         ],
       }

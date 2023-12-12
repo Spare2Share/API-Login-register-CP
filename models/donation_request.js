@@ -1,61 +1,59 @@
-import Sequelize from "sequelize";
+import _sequelize from "sequelize";
+const { Model, Sequelize } = _sequelize;
 
-export default function(sequelize, DataTypes) {
-  return sequelize.define('donation_request', {
-    id: {
-      autoIncrement: true,
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
-    },
-    name: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
-    description: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
-    date: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    type: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
-    quantity: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    id_organisasi: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'organization',
-        key: 'id'
+export default class donation_request extends Model {
+  static init(sequelize, DataTypes) {
+    return sequelize.define(
+      "donation_request",
+      {
+        id: {
+          autoIncrement: true,
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          primaryKey: true,
+        },
+        id_pemohon: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          references: {
+            model: "organization",
+            key: "id",
+          },
+        },
+        tanggal: {
+          type: DataTypes.STRING(255),
+          allowNull: true,
+        },
+        deskripsi: {
+          type: DataTypes.STRING(255),
+          allowNull: true,
+        },
+        jenis_makanan: {
+          type: DataTypes.STRING(255),
+          allowNull: true,
+        },
+        jumlah_makanan: {
+          type: DataTypes.INTEGER,
+          allowNull: true,
+        },
+      },
+      {
+        tableName: "donation_request",
+        timestamps: false,
+        indexes: [
+          {
+            name: "PRIMARY",
+            unique: true,
+            using: "BTREE",
+            fields: [{ name: "id" }],
+          },
+          {
+            name: "id_pemohon",
+            using: "BTREE",
+            fields: [{ name: "id_pemohon" }],
+          },
+        ],
       }
-    }
-  }, {
-    sequelize,
-    tableName: 'donation_request',
-    timestamps: false,
-    indexes: [
-      {
-        name: "PRIMARY",
-        unique: true,
-        using: "BTREE",
-        fields: [
-          { name: "id" },
-        ]
-      },
-      {
-        name: "id_organisasi",
-        using: "BTREE",
-        fields: [
-          { name: "id_organisasi" },
-        ]
-      },
-    ]
-  });
-};
+    );
+  }
+}

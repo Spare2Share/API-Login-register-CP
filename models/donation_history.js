@@ -1,10 +1,10 @@
 import _sequelize from "sequelize";
 const { Model, Sequelize } = _sequelize;
 
-export default class recipient_history extends Model {
+export default class donation_history extends Model {
   static init(sequelize, DataTypes) {
     return sequelize.define(
-      "recipient_history",
+      "donation_history",
       {
         id: {
           autoIncrement: true,
@@ -12,25 +12,25 @@ export default class recipient_history extends Model {
           allowNull: false,
           primaryKey: true,
         },
-        id_penerima: {
+        id_donatur: {
           type: DataTypes.INTEGER,
           allowNull: false,
           references: {
-            model: "organization",
+            model: "user",
             key: "id",
           },
         },
-        id_permintaan: {
+        id_donasi: {
           type: DataTypes.INTEGER,
           allowNull: false,
           references: {
-            model: "donation_request",
+            model: "donation",
             key: "id",
           },
         },
       },
       {
-        tableName: "recipient_history",
+        tableName: "donation_history",
         timestamps: false,
         indexes: [
           {
@@ -40,14 +40,14 @@ export default class recipient_history extends Model {
             fields: [{ name: "id" }],
           },
           {
-            name: "id_penerima",
+            name: "id_donatur",
             using: "BTREE",
-            fields: [{ name: "id_penerima" }],
+            fields: [{ name: "id_donatur" }],
           },
           {
-            name: "id_permintaan",
+            name: "id_donasi",
             using: "BTREE",
-            fields: [{ name: "id_permintaan" }],
+            fields: [{ name: "id_donasi" }],
           },
         ],
       }

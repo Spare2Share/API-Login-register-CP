@@ -1,10 +1,10 @@
 import _sequelize from "sequelize";
 const { Model, Sequelize } = _sequelize;
 
-export default class organization extends Model {
+export default class account extends Model {
   static init(sequelize, DataTypes) {
     return sequelize.define(
-      "organization",
+      "account",
       {
         id: {
           autoIncrement: true,
@@ -12,41 +12,22 @@ export default class organization extends Model {
           allowNull: false,
           primaryKey: true,
         },
-        id_account: {
-          type: DataTypes.INTEGER,
+        email: {
+          type: DataTypes.STRING(255),
           allowNull: false,
-          references: {
-            model: "account",
-            key: "id",
-          },
+          unique: "email",
         },
-        nama: {
+        password: {
           type: DataTypes.STRING(255),
-          allowNull: true,
+          allowNull: false,
         },
-        deskripsi: {
+        refresh_token: {
           type: DataTypes.STRING(255),
-          allowNull: true,
-        },
-        alamat: {
-          type: DataTypes.STRING(255),
-          allowNull: true,
-        },
-        kota: {
-          type: DataTypes.STRING(255),
-          allowNull: true,
-        },
-        provinsi: {
-          type: DataTypes.STRING(255),
-          allowNull: true,
-        },
-        nomor_telepon: {
-          type: DataTypes.STRING(50),
           allowNull: true,
         },
       },
       {
-        tableName: "organization",
+        tableName: "account",
         timestamps: false,
         indexes: [
           {
@@ -56,9 +37,10 @@ export default class organization extends Model {
             fields: [{ name: "id" }],
           },
           {
-            name: "id_account",
+            name: "email",
+            unique: true,
             using: "BTREE",
-            fields: [{ name: "id_account" }],
+            fields: [{ name: "email" }],
           },
         ],
       }
