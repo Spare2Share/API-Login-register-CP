@@ -1,8 +1,8 @@
 import express from "express";
 import { getDonationrequest } from "../controllers/Donationrequest.js";
-import { getDonorhistory } from "../controllers/Donorhistory.js";
-import { getFooddonation } from "../controllers/Fooddonation.js";
-import { getRecipienthistory } from "../controllers/Recipienthistory.js";
+import { postDonationhistory } from "../controllers/Donationhistory.js";
+import { postDonation } from "../controllers/Donation.js";
+import { postRecipienthistory } from "../controllers/Recipienthistory.js";
 import userRoutes from "./userRoute.js";
 import authRoutes from "./authRoute.js";
 import organizationRoutes from "./organizationRoute.js";
@@ -14,8 +14,8 @@ router.use("/user", userRoutes);
 router.use("/organization", organizationRoutes);
 
 router.get("/donationrequest", getDonationrequest);
-router.get("/donorhistory", getDonorhistory);
-router.get("/fooddonation", getFooddonation);
-router.get("/recipienthistory", getRecipienthistory);
+router.post("/donationhistory", postDonationhistory);
+router.post("/donation", postDonation);
+router.post("/recipienthistory", postRecipienthistory);
 
 export default router;
