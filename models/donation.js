@@ -20,11 +20,11 @@ export default class donation extends Model {
             key: "id",
           },
         },
-        id_penerima: {
+        id_permintaan: {
           type: DataTypes.INTEGER,
           allowNull: false,
           references: {
-            model: "organization",
+            model: "donation_request",
             key: "id",
           },
         },
@@ -61,9 +61,9 @@ export default class donation extends Model {
             fields: [{ name: "id_donatur" }],
           },
           {
-            name: "id_penerima",
+            name: "id_permintaan",
             using: "BTREE",
-            fields: [{ name: "id_penerima" }],
+            fields: [{ name: "id_permintaan" }],
           },
         ],
       }

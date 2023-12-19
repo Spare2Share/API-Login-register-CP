@@ -7,7 +7,7 @@ export const addDonation = async (req, res) => {
     deskripsi,
     jenis_makanan,
     jumlah_makanan,
-    id_penerima,
+    id_permintaan,
   } = req.body;
 
   try {
@@ -17,7 +17,7 @@ export const addDonation = async (req, res) => {
       deskripsi,
       jenis_makanan,
       jumlah_makanan,
-      id_penerima,
+      id_permintaan,
     });
 
     return res.status(201).json({
