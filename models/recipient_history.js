@@ -12,9 +12,17 @@ export default class recipient_history extends Model {
           allowNull: false,
           primaryKey: true,
         },
-        id_penerima: {
+        id_user: {
           type: DataTypes.INTEGER,
-          allowNull: false,
+          allowNull: true,
+          references: {
+            model: "user",
+            key: "id",
+          },
+        },
+        id_organization: {
+          type: DataTypes.INTEGER,
+          allowNull: true,
           references: {
             model: "organization",
             key: "id",
@@ -40,14 +48,19 @@ export default class recipient_history extends Model {
             fields: [{ name: "id" }],
           },
           {
-            name: "id_penerima",
-            using: "BTREE",
-            fields: [{ name: "id_penerima" }],
-          },
-          {
             name: "id_permintaan",
             using: "BTREE",
             fields: [{ name: "id_permintaan" }],
+          },
+          {
+            name: "id_user",
+            using: "BTREE",
+            fields: [{ name: "id_user" }],
+          },
+          {
+            name: "id_organization",
+            using: "BTREE",
+            fields: [{ name: "id_organization" }],
           },
         ],
       }
