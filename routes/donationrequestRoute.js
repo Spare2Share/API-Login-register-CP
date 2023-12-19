@@ -1,14 +1,17 @@
 import { Router } from "express";
 import {
-  getDonationrequest,
-  getDonationrequestProfile,
-  updateDonationrequestProfile,
+  addDonationRequest,
+  getDonationRequest,
+  getDonationRequestById,
+  updateDonationrequest,
 } from "../controllers/Donationrequest.js";
+import { verifyToken } from "../middleware/Verifytoken.js";
 
-const donationrequestRoutes = Router();
+const donationRequestRoutes = Router();
 
-donationrequestRoutes.get("/", getDonationrequest);
-donationrequestRoutes.get("/:id", getDonationrequestProfile);
-donationrequestRoutes.put("/:id", updateDonationrequestProfile);
+donationRequestRoutes.get("/", verifyToken, getDonationRequest);
+donationRequestRoutes.post("/", verifyToken, addDonationRequest);
+donationRequestRoutes.get("/:id", verifyToken, getDonationRequestById);
+donationRequestRoutes.put("/:id", verifyToken, updateDonationrequest);
 
-export default donationrequestRoutes;
+export default donationRequestRoutes;

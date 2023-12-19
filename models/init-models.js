@@ -56,11 +56,11 @@ export default function initModels(sequelize) {
   });
   donation_request.belongsTo(organization, {
     as: "organization",
-    foreignKey: "id_pemohon",
+    foreignKey: "id_organization",
   });
   organization.hasMany(donation_request, {
     as: "donation_requests",
-    foreignKey: "id_pemohon",
+    foreignKey: "id_organization",
   });
   recipient_history.belongsTo(organization, {
     as: "organization",
@@ -80,9 +80,13 @@ export default function initModels(sequelize) {
     as: "donation_histories",
     foreignKey: "id_donatur",
   });
-  user.hasMany(recipient_history, {
-    as: "recipient_histories",
-    foreignKey: "id_penerima",
+  donation_request.belongsTo(user, {
+    as: "user",
+    foreignKey: "id_user",
+  });
+  user.hasMany(donation_request, {
+    as: "donation_requests",
+    foreignKey: "id_user",
   });
 
   return {

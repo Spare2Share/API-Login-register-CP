@@ -12,9 +12,17 @@ export default class donation_request extends Model {
           allowNull: false,
           primaryKey: true,
         },
-        id_pemohon: {
+        id_user: {
           type: DataTypes.INTEGER,
-          allowNull: false,
+          allowNull: true,
+          references: {
+            model: "user",
+            key: "id",
+          },
+        },
+        id_organization: {
+          type: DataTypes.INTEGER,
+          allowNull: true,
           references: {
             model: "organization",
             key: "id",
@@ -48,9 +56,14 @@ export default class donation_request extends Model {
             fields: [{ name: "id" }],
           },
           {
-            name: "id_pemohon",
+            name: "id_organization",
             using: "BTREE",
-            fields: [{ name: "id_pemohon" }],
+            fields: [{ name: "id_organization" }],
+          },
+          {
+            name: "id_user",
+            using: "BTREE",
+            fields: [{ name: "id_user" }],
           },
         ],
       }
