@@ -26,12 +26,7 @@ export const getUserProfile = async (req, res) => {
       where: {
         id: id,
       },
-      include: [
-        "account",
-        "donations",
-        "donation_histories",
-        "recipient_histories",
-      ],
+      include: ["account"],
     });
     res.status(200).json({
       status: "success",
