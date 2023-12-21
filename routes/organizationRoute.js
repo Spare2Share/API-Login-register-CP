@@ -4,11 +4,12 @@ import {
   getOrganizationProfile,
   updateOrganizationProfile,
 } from "../controllers/Organization.js";
+import { verifyToken } from "../middleware/Verifytoken.js";
 
 const organizationRoutes = Router();
 
-organizationRoutes.get("/", getOrganization);
-organizationRoutes.get("/:id", getOrganizationProfile);
-organizationRoutes.put("/:id", updateOrganizationProfile);
+organizationRoutes.get("/", verifyToken, getOrganization);
+organizationRoutes.get("/:id", verifyToken, getOrganizationProfile);
+organizationRoutes.put("/:id", verifyToken, updateOrganizationProfile);
 
 export default organizationRoutes;

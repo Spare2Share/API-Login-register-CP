@@ -38,6 +38,14 @@ export default function initModels(sequelize) {
     as: "donation_histories",
     foreignKey: "id_donasi",
   });
+  donation.belongsTo(donation_request, {
+    as: "donation_request",
+    foreignKey: "id_permintaan",
+  });
+  donation_request.hasMany(donation, {
+    as: "donations",
+    foreignKey: "id_permintaan",
+  });
   recipient_history.belongsTo(donation_request, {
     as: "donation_request",
     foreignKey: "id_permintaan",
@@ -46,29 +54,21 @@ export default function initModels(sequelize) {
     as: "recipient_histories",
     foreignKey: "id_permintaan",
   });
-  donation.belongsTo(organization, {
-    as: "organization",
-    foreignKey: "id_penerima",
-  });
-  organization.hasMany(donation, {
-    as: "donations",
-    foreignKey: "id_penerima",
-  });
   donation_request.belongsTo(organization, {
     as: "organization",
-    foreignKey: "id_pemohon",
+    foreignKey: "id_organization",
   });
   organization.hasMany(donation_request, {
     as: "donation_requests",
-    foreignKey: "id_pemohon",
+    foreignKey: "id_organization",
   });
   recipient_history.belongsTo(organization, {
     as: "organization",
-    foreignKey: "id_penerima",
+    foreignKey: "id_organization",
   });
   organization.hasMany(recipient_history, {
     as: "recipient_histories",
-    foreignKey: "id_penerima",
+    foreignKey: "id_organization",
   });
   donation.belongsTo(user, { as: "user", foreignKey: "id_donatur" });
   user.hasMany(donation, { as: "donations", foreignKey: "id_donatur" });
@@ -80,9 +80,21 @@ export default function initModels(sequelize) {
     as: "donation_histories",
     foreignKey: "id_donatur",
   });
+  donation_request.belongsTo(user, {
+    as: "user",
+    foreignKey: "id_user",
+  });
+  user.hasMany(donation_request, {
+    as: "donation_requests",
+    foreignKey: "id_user",
+  });
+  recipient_history.belongsTo(user, {
+    as: "user",
+    foreignKey: "id_user",
+  });
   user.hasMany(recipient_history, {
     as: "recipient_histories",
-    foreignKey: "id_penerima",
+    foreignKey: "id_user",
   });
 
   return {

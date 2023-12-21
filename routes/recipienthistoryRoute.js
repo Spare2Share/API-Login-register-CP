@@ -1,10 +1,13 @@
 import { Router } from "express";
 import {
-  postRecipienthistory,
+  addRecipientHistory,
+  getRecipientHistories,
 } from "../controllers/Recipienthistory.js";
+import { verifyToken } from "../middleware/Verifytoken.js";
 
-const recipienthistoryRoutes = Router();
+const recipientHistoryRoutes = Router();
 
-recipienthistoryRoutes.post("/", postRecipienthistory);
+recipientHistoryRoutes.get("/", verifyToken, getRecipientHistories);
+recipientHistoryRoutes.post("/", verifyToken, addRecipientHistory);
 
-export default recipienthistoryRoutes;
+export default recipientHistoryRoutes;

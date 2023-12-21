@@ -3,9 +3,19 @@ import models from "../config/Database.js";
 export const getOrganization = async (req, res) => {
   try {
     const organizations = await models.organization.findAll({});
-    res.status(200).json({ organizations });
+    res.status(200).json({
+      status: "success",
+      code: 200,
+      message: "Data berhasil diambil",
+      data: organizations,
+      total_items: organizations.length,
+    });
   } catch (error) {
-    console.log(error);
+    res.status(400).json({
+      status: "error",
+      code: 400,
+      message: error.message,
+    });
   }
 };
 
@@ -18,9 +28,19 @@ export const getOrganizationProfile = async (req, res) => {
       },
       include: ["account", "donation_requests", "recipient_histories"],
     });
-    res.status(200).json({ organization });
+    res.status(200).json({
+      status: "success",
+      code: 200,
+      message: "Data berhasil diambil",
+      data: organization,
+      total_items: organization.length,
+    });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({
+      status: "error",
+      code: 400,
+      message: error.message,
+    });
   }
 };
 
@@ -45,8 +65,16 @@ export const updateOrganizationProfile = async (req, res) => {
       }
     );
 
-    res.status(201).json({ msg: "Profile organization berhasil diupdate" });
+    res.status(200).json({
+      status: "success",
+      code: 200,
+      message: "Profile berhasil diupdate",
+    });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({
+      status: "error",
+      code: 400,
+      message: error.message,
+    });
   }
 };

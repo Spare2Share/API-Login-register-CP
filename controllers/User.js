@@ -3,9 +3,19 @@ import models from "../config/Database.js";
 export const getUser = async (req, res) => {
   try {
     const users = await models.user.findAll({});
-    res.status(200).json({ users });
+    res.status(200).json({
+      status: "success",
+      code: 200,
+      message: "Data berhasil diambil",
+      data: users,
+      total_items: users.length,
+    });
   } catch (error) {
-    console.log(error);
+    res.status(400).json({
+      status: "error",
+      code: 400,
+      message: error.message,
+    });
   }
 };
 
@@ -16,16 +26,21 @@ export const getUserProfile = async (req, res) => {
       where: {
         id: id,
       },
-      include: [
-        "account",
-        "donations",
-        "donation_histories",
-        "recipient_histories",
-      ],
+      include: ["account"],
     });
-    res.status(200).json({ user });
+    res.status(200).json({
+      status: "success",
+      code: 200,
+      message: "Data berhasil diambil",
+      data: user,
+      total_items: user.length,
+    });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({
+      status: "error",
+      code: 400,
+      message: error.message,
+    });
   }
 };
 
@@ -50,8 +65,16 @@ export const updateUserProfile = async (req, res) => {
       }
     );
 
-    res.status(201).json({ msg: "Profile user berhasil diupdate" });
+    res.status(200).json({
+      status: "success",
+      code: 200,
+      message: "Profile berhasil diupdate",
+    });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({
+      status: "error",
+      code: 400,
+      message: error.message,
+    });
   }
 };
